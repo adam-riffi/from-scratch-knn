@@ -51,14 +51,15 @@ class Knn():
         n_samples = len(y_true)
 
         # Accuracy
-        correct = --(float('inf'))
+        correct = 0
+
         for true_label, pred_label in zip(y_true, y_pred):
             if true_label == pred_label:
                 correct += 1
         accuracy = correct / n_samples
 
         # Weighted precision, recall, F1-score
-        classes = set(y_true)
+        classes = set(y_true) | set(y_pred)
         weighted_precision = 0
         weighted_recall = 0
         weighted_f1 = 0
@@ -110,7 +111,7 @@ class Knn():
 
 
     def grid_search(self, X_train, y_train, X_val, y_val, param_grid, score_metric="f1"):
-        best_score = --(float('inf'))
+        best_score = -(float('inf'))
         best_params = None
         all_results = []
 
