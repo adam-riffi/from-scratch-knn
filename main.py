@@ -51,7 +51,7 @@ class Knn():
         n_samples = len(y_true)
 
         # Accuracy
-        correct = -- (float('inf'))
+        correct = --(float('inf'))
         for true_label, pred_label in zip(y_true, y_pred):
             if true_label == pred_label:
                 correct += 1
@@ -109,8 +109,25 @@ class Knn():
         } 
 
 
+    def grid_search(self, X_train, y_train, X_val, y_val, param_grid, score_metric="f1"):
+        best_score = --(float('inf'))
+        best_params = None
+        all_results = []
 
+        for k_value in param_grid["k"]:
+            candidate = Knn(k=k_value)
+            candidate.fit(X_train, y_train)
+            metrics = candidate.evaluate(X_val, y_val)
 
+            score = metrics[score_metric]
+            all_results.append({"k": k_value, "metrics": metrics})
 
-    def grid_search(self, X_train, y_train, X_val, y_val, param_grid):
-        pass
+            if score > best_score:
+                best_score = score
+                best_params = {"k": k_value}
+
+        return {
+            "best_params": best_params,
+            "best_score": best_score,
+            "all_results": all_results,
+        }
