@@ -7,7 +7,10 @@ class Knn():
         self.y_train = None
 
     def _euclidean(self, a, b):
-        pass
+        squared_sum = 0
+        for x, y in zip(a, b):
+            squared_sum += (x - y) ** 2
+        return squared_sum ** 0.5
 
     def fit(self, X, y):
         pass
