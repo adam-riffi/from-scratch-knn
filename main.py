@@ -25,6 +25,14 @@ class Knn():
             for train_point, train_label in zip(self.X_train, self.y_train):
                 distance = self._euclidean(sample, train_point)
                 distances.append((distance, train_label))
+            distances.sort()
+            k_nearest = distances[:self.k]
+
+            vote_counts = {}
+            for distance, label in k_nearest:
+                vote_counts[label] = vote_counts.get(label, 0) + 1
+
+
 
     def evaluate(self, X, y):
         pass
