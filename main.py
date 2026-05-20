@@ -19,7 +19,12 @@ class Knn():
         self.y_train = list(y)
 
     def predict(self, X):
-        pass
+        predictions = []
+        for sample in X:
+            distances = []
+            for train_point, train_label in zip(self.X_train, self.y_train):
+                distance = self._euclidean(sample, train_point)
+                distances.append((distance, train_label))
 
     def evaluate(self, X, y):
         pass
