@@ -20,8 +20,10 @@ class Knn():
 
     def predict(self, X):
         predictions = []
+
         for sample in X:
             distances = []
+
             for train_point, train_label in zip(self.X_train, self.y_train):
                 distance = self._euclidean(sample, train_point)
                 distances.append((distance, train_label))
@@ -31,8 +33,16 @@ class Knn():
             vote_counts = {}
             for distance, label in k_nearest:
                 vote_counts[label] = vote_counts.get(label, 0) + 1
+            
+            predicted_label = None
+            highest_count = -(float('inf'))
+            for label, count in vote_counts.items():
+                if count > highest_count:
+                    highest_count = count
+                    predicted_label = label
+            predictions.append(predicted_label)
 
-
+        return predictions
 
     def evaluate(self, X, y):
         pass
