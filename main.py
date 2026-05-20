@@ -6,14 +6,17 @@ class Knn():
         self.X_train = None
         self.y_train = None
 
-    def _euclidean(self, a, b):
-        squared_sum = 0
-        for x, y in zip(a, b):
-            squared_sum += (x - y) ** 2
-        return squared_sum ** 0.5
+    def _euclidean(self, point_a, point_b):
+        squared_dist = 0
+        for coord_a, coord_b in zip(point_a, point_b):
+            squared_dist += (coord_a - coord_b) ** 2
+        return squared_dist ** 0.5
 
     def fit(self, X, y):
-        pass
+        if len(X) != len(y):
+            raise ValueError("X and y must have the same number of samples.")
+        self.X_train = [list(row) for row in X]
+        self.y_train = list(y)
 
     def predict(self, X):
         pass
